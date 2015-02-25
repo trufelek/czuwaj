@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @magazine.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @magazine.description %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= image_tag(@magazine.picture_url, :width => 200) if @magazine.picture.present? %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @magazine.price %>
+</p>
+
+<%= link_to 'Edit', edit_magazine_path(@magazine) %> |
+<%= link_to 'Back', magazines_path %>
