@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  helper_method :current_order
+  helper_method :current_order, :current_userid
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied!"
@@ -9,10 +9,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if !session[:order_id].nil?
-      Order.find(session[:order_id])
-    else
-      Order.new
+    if user_signed_in?
+      if (Order.find_by user_id:current_user.id).nil?
+        Order.new
+      elsif Order.find_by(iscart: 0, user_id: current_user.id).nil?
+        Order.new
+      else
+        Order.find_by(iscart: 0, user_id: current_user.id)
+      end
     end
   end
 

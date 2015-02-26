@@ -1,0 +1,15 @@
+<% if @client_orders.size == 0 %>
+  <p class="text-center">
+    Nie ma żadnych zamówień. <%= link_to "Wróć", root_path %> i dodaj coś.
+  </p>
+<% else %>
+  <% @client_orders.each do |client_order| %>
+      <p> Id: <%= client_order.id %>
+      <%= OrderStatus.all.find_by(id: client_order.order_status_id).name %>
+        <td><%= link_to 'Szczegóły', client_order %></td>
+        <td><%= link_to 'Edytuj status', edit_client_order_path(client_order) %></td>
+      
+  <% end %>
+
+
+<% end %>

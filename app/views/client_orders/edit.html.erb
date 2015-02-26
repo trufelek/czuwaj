@@ -1,0 +1,11 @@
+<% if can? :show, Order %>
+
+<h1>Editing Client Order</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @client_order %> |
+<%= link_to 'Back', client_orders_path %>
+
+
+<% end %>

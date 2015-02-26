@@ -15,4 +15,7 @@
   <% @order_items.each do |order_item| %>
     <%= render 'carts/cart_row', magazine: order_item.magazine, order_item: order_item, show_total: true %>
   <% end %>
+  
+  <%= link_to "Złóż zamówienie", carts_checkout_path  %>
+
 <% end %>

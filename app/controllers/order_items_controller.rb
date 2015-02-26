@@ -3,6 +3,8 @@ class OrderItemsController < ApplicationController
   def create
     @order = current_order
     @order_item = @order.order_items.new(order_item_params)
+    @order.user_id = current_user.id
+    @order.iscart = 0
     @order.save
     session[:order_id] = @order.id
   end
@@ -21,9 +23,16 @@ class OrderItemsController < ApplicationController
     @order_items = @order.order_items
   end
 
-private
-  def order_item_params
-    params.require(:order_item).permit(:quantity, :magazine_id)
+  def finish
+    if current_order.subtotal != 0
+      current_order.update_attribute(:iscart, 1)
+    end
   end
-  
+
+
+  private
+    def order_item_params
+      params.require(:order_item).permit(:quantity, :magazine_id)
+    end
+
 end

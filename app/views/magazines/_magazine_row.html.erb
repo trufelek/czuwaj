@@ -2,6 +2,7 @@
 <%= magazine.description %>
 <%= image_tag(magazine.picture_url, :width => 200) if magazine.picture.present? %>
 
+<% if user_signed_in? %>
 <%= form_for order_item, remote: true do |f| %>
   <h4 class="text-right">Unit Price: <span style="color: green"><%= magazine.price %></span></h4>
   <div class="input-group">
@@ -21,4 +22,5 @@
 
 <% if can? :destroy, magazine %>
   <%= link_to 'Destroy', magazine, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 <% end %>
