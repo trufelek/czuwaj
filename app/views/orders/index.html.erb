@@ -1,11 +1,10 @@
-<% if @finished_orders.nil? %>
-  <p class="text-center">
-    Nie masz żadnych zamówień. <%= link_to "Wróć", root_path %>.
-  </p>
-<% else %>
-
-<% @finished_orders.each do |finished_order| %>
+<% if @finished_orders %>
+ <% @finished_orders.each do |finished_order| %>
  	<p><%= @status.find_by(id: finished_order.order_status_id).name%> <%= finished_order.subtotal%> zł
  		<td><%= link_to 'Szczegóły', finished_order %></td>
  <% end %> 
+<% else %>
+ <p>
+    Nie masz żadnych zamówień. <%= link_to "Wróć", root_path %>.
+  </p>
 <% end %>
